@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="mdynamix" type="logitech_g29.py" name="mdynamix" output="screen"></node>
+</launch>

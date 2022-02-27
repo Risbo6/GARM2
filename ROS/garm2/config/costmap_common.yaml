@@ -1,0 +1,29 @@
+footprint: [[-1, -0.5], [-1, 0.5], [1, 0.5], [1, -0.5]]
+footprint_padding: 0.01
+
+robot_base_frame: base_footprint_filtered
+update_frequency: 10
+publish_frequency: 10
+transform_tolerance: 0.5
+
+resolution: 0.05
+
+obstacle_range: 19
+raytrace_range: 20
+
+#layer definitions
+static:
+    map_topic: map
+    subscribe_to_updates: true  
+
+obstacles_laser:
+    #observation_sources: PointCloud
+    observation_sources: LaserScan
+    #PointCloud: {data_type: PointCloud2, clearing: true, marking: true, topic: velodyne/assembled_cloud2}
+    LaserScan: {data_type: LaserScan, clearing: true, marking: true, topic: sick_front/scan}
+
+inflation:  
+    inflation_radius: 2
+    cost_scaling_factor: 1
+    #inflation_radius: 1.5
+    #cost_scaling_factor: 10 

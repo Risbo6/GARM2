@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="garm2" type="server_telemetry.py" name="serv_telemetry"></node>
+  <node pkg="garm2" type="server_map.py" name="serv_map"></node>
+  <node pkg="garm2" type="server_cam.py" name="serv_camera"></node>
+</launch>

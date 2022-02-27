@@ -1,6 +1,6 @@
 # GARM 2
 
-Projet de master 2022
+Projet de master 2021-2022
 
 ## Installation
 

@@ -1,0 +1,7 @@
+<launch>
+
+  <node name="recognition" pkg="vocal" type="speech_recogn.py" respawn="true" output="screen" />
+  <node name="verity" pkg="vocal" type="voice_verity.py" respawn="true" output="screen" />
+
+
+</launch>

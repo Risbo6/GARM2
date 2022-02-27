@@ -1,0 +1,115 @@
+#import MapView kivy.garden.mapview.MapView
+
+BoxLayout:
+    orientation: 'vertical'
+
+    BoxLayout:
+        orientation: 'horizontal'
+        on_touch_down: app.touch_down(args[1])
+
+        MapView:
+            id: mapview
+            lat: 46.79700469980912
+            lon: 7.14721142573427
+            zoom: 18
+
+
+    
+
+    BoxLayout:
+        id: button_box
+        orientation: 'vertical'
+        size_hint_y:0.1
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Label:
+                id: autopilot_label
+                canvas:
+                    Color:
+                        rgba: .5, .5, .5, .0
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                text:"Autopilot Mode: None"
+                font_size:'20sp'
+
+            Label:
+                size_hint_x:0.01
+                canvas:
+                    Color:
+                        rgba: .8, .8, .8, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            Label:
+                id: path_label
+                canvas:
+                    Color:
+                        rgba: .5, .5, .5, .0
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                text:"Path: No path selected yet"
+                font_size:'20sp'
+
+
+            Label:
+                size_hint_x:0.01
+                canvas:
+                    Color:
+                        rgba: .8, .8, .8, 1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+
+            Label:
+                id: status_label
+                canvas:
+                    Color:
+                        rgba: .5, .5, .5, .0
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                text:"Status: Awaiting commands"
+                font_size:'20sp'
+
+
+
+        Label:
+            size_hint_y:0.1
+            canvas:
+                Color:
+                    rgba: .8, .8, .8, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                on_press: app.one_way_press(*args)
+                text: "One way"
+                font_size:'20sp'
+
+            Button:
+                on_press: app.patrol_press(*args)
+                text: "Patrol"
+                font_size:'20sp'
+
+            Button:
+                on_press: app.circle_press(*args)
+                text: "Circle"
+                font_size:'20sp'
+
+            Button:
+                on_press: app.cancel_press(*args)
+                text: "Cancel"
+                font_size:'20sp'
+
+    

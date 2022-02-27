@@ -1,0 +1,8 @@
+<launch>
+  <arg name="ip" default="192.168.2.101"/> 
+  <param name="ip" value="$(arg ip)"/>
+  <node name="joy" pkg="joy" type="joy_node" output="screen"/>
+  <node name="telemetry_client" pkg="gui" type="gui_trio.py" output="screen"/>
+  <node name="cam_client" pkg="gui" type="cam_client.py" output="screen"/>
+  <node name="map_client" pkg="gui" type="map_gui.py" output="screen"/>
+</launch>

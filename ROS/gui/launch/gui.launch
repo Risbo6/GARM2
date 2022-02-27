@@ -1,0 +1,6 @@
+<launch>
+  <arg name="ip" default="192.168.2.101"/> 
+  <param name="ip" value="$(arg ip)"/>
+  <node name="joy" pkg="joy" type="joy_node" output="screen"/>
+  <node name="gui" pkg="gui" type="gui_trio.py" output="screen"/>
+</launch>

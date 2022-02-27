@@ -1,0 +1,529 @@
+#:import MapView kivy.garden.mapview.MapView
+
+BoxLayout:
+    orientation:'vertical'
+
+    
+    canvas:
+        Color:
+            rgba: .3, .3, .3, .2
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    #BoxLayout:
+        #orientation:'horizontal'
+        #size_hint: (1, 0.1)
+
+        #Label:
+            #id:padding
+        
+
+    BoxLayout:
+        orientation:'horizontal'
+        size_hint_y:1.5
+    
+        BoxLayout:
+            orientation:'vertical'
+
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint_y:2
+                canvas:
+                    Color:
+                        rgba: .4, .3, .3, .1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                Label:
+                    size_hint_x:1.8
+                    text:"Max. linear speed"
+                    font_size:'20sp'
+
+                MDProgressBar:
+                    id: linear_speed_limiter
+                    prog_value : 0
+                    orientation: "horizontal"
+                    value: self.prog_value
+                    color: self.prog_value/100, (100-self.prog_value)/100,0,1
+                    #size_hint_x: 0.2
+                    halign: "center"
+                Label:
+                    id: linear_speed_limit_label
+                    text:"0%"
+                    font_size:'20sp'
+
+
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint_y:2
+                canvas:
+                    Color:
+                        rgba: .4, .3, .3, .1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                Label:
+                    size_hint_x:1.8
+                    text:"Max. angular speed"
+                    font_size:'20sp'
+
+                MDProgressBar:
+                    id: angular_speed_limiter
+                    prog_value : 0
+                    orientation: "horizontal"
+                    value: self.prog_value
+                    color: self.prog_value/100, (100-self.prog_value)/100,0,1
+                    #size_hint_x: 0.2
+                    halign: "center"
+                Label:
+                    id: angular_speed_limit_label
+                    text:"0%"
+                    font_size:'20sp'
+
+
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint_y:2
+                canvas:
+                    Color:
+                        rgba: .4, .3, .3, .1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                Label:
+                    size_hint_x:1.8
+                    text:"Linear speed"
+                    font_size:'20sp'
+
+                MDProgressBar:
+                    id: linear_current_speed
+                    prog_value : 0
+                    orientation: "horizontal"
+                    value: self.prog_value
+                    color: self.prog_value/100, (100-self.prog_value)/100,0,1
+                    #size_hint_x: 0.2
+                    halign: "center"
+                Label:
+                    id: linear_current_speed_label
+                    text:"0.0 m/s"
+                    font_size:'20sp'
+
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint_y:2
+                canvas:
+                    Color:
+                        rgba: .4, .3, .3, .1
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                Label:
+                    size_hint_x:1.8
+                    text:"Angular speed"
+                    font_size:'20sp'
+
+                MDProgressBar:
+                    id: angular_current_speed
+                    prog_value : 0
+                    orientation: "horizontal"
+                    value: self.prog_value
+                    color: self.prog_value/100, (100-self.prog_value)/100,0,1
+                    #size_hint_x: 0.2
+                    halign: "center"
+                Label:
+                    id: angular_current_speed_label
+                    text:"0.0 rad/s"
+                    font_size:'20sp'
+
+
+
+
+        BoxLayout:
+            orientation:'vertical'
+            Image:
+                id: im2
+                allow_stretch: True
+                source: 'images/no_signal.jpg'
+
+
+            Button:
+                id: screenshot_button
+                size_hint_y: .1
+                text:'Take screenshot'
+                on_press: app.screenshoot_press(*args)
+
+
+
+        BoxLayout:
+            orientation:'vertical'
+
+            BoxLayout:
+                orientation:'horizontal'
+
+                Label:
+                    pos_hint:{"center_y":0.5}
+                    text : "Roll"
+                    font_size:'20sp'
+
+                Image:
+                    id: front_axe
+                    alpha: 0
+                    source: 'images/front_axe.png'
+                    size_hint_y: 1
+                    size_hint_x: 1.5
+                    allow_stretch: True
+
+                    canvas.before:
+                        PushMatrix
+                        Rotate:
+                            angle: self.alpha
+                            origin: self.center
+                    canvas.after:
+                        PopMatrix
+
+                        Line: 
+                            width: 1
+                            points: (self.x, self.center_y, self.right, self.center_y) 
+
+
+                Label:
+                    id: roll_deg
+                    pos_hint:{"center_y":0.5}
+                    text : "0°"
+                    font_size:'20sp'
+
+            
+            BoxLayout:
+                orientation:'horizontal'
+
+                Label:
+                    pos_hint:{"center_y":0.5}
+                    text : "Pitch"
+                    font_size:'20sp'
+                    
+                Image:
+                    id: side_axe
+                    alpha: 0
+                    source: 'images/side_axe.png'
+                    size_hint_y: 1
+                    size_hint_x: 1.5
+                    allow_stretch: True
+
+                    canvas.before:
+                        PushMatrix
+                        Rotate:
+                            angle: self.alpha
+                            origin: self.center
+                    canvas.after:
+                        PopMatrix
+
+                        Line: 
+                            width: 1
+                            points: (self.x, self.center_y, self.right, self.center_y) 
+
+
+                Label:
+                    id: pitch_deg
+                    pos_hint:{"center_y":0.5}
+                    text : "0°"
+                    font_size:'20sp'
+
+            
+        
+
+
+
+            #BoxLayout:
+                #orientation:'horizontal'
+                #MDLabel:
+                    #text: "Speed control"
+                    #theme_text_color: "Primary"
+                    #font_size:'30sp'
+                    #halign: "center"
+                    #color: app.theme_cls.accent_color
+                #MDSlider:
+                    #min: 0
+                    #max: 100
+                    #value: 1
+                    #color: app.theme_cls.accent_color
+                    #on_touch_up: app.slider_speed(self.value)
+
+
+
+    BoxLayout:
+        orientation:'horizontal'
+        size_hint_y: 1.5
+
+        #Sliders
+        BoxLayout:
+            orientation:'vertical'
+            size_hint_y: 1
+
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint_y: .1
+
+                Label:
+                    id: latitude_label
+                    valign: "center"
+                    text : "Latitude: 46.4933"
+                    font_size:'20sp'
+
+                Label:
+                    id: longitude_label
+                    valign: "center"
+                    text : "Longitude: 6.7350"
+                    font_size:'20sp'
+
+
+            MapView:
+                id: MyMapView
+                current_lat: 0
+                current_lon: 0
+                name: "images/marker50.png"
+                lat: 0
+                lon: 0
+                zoom: 19
+
+                MapMarker:
+                    lat: MyMapView.current_lat
+                    lon: MyMapView.current_lon
+                    source: MyMapView.name
+
+            Button:
+                id: calibrate_button
+                size_hint_y: .1
+                text:'Compass Calibration'
+                on_press: app.calibrate_press(*args)
+                    
+                        
+
+
+                
+
+
+
+
+
+
+
+
+
+
+        #Joystick
+        BoxLayout:
+            orientation:'vertical'
+            canvas:
+                Color:
+                    rgba: .4, .3, .3, .1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            
+            Label:
+                id:padding
+                size_hint_y: .1
+                
+            Label:
+                size_hint_y: .3
+                text_size: self.size
+                halign: "center"
+                text : "Display"
+                font_size:'40sp'
+
+            Label:
+                id:padding
+                size_hint_y: .3
+
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint_y: .1
+
+                Label:
+                    valign: "center"
+                    text : "Linear speed control"
+                    font_size:'20sp'
+
+                Label:
+                    valign: "center"
+                    text : "Rotational speed control"
+                    font_size:'20sp'
+                
+            BoxLayout:
+                orientation:'horizontal'
+
+                # Slider:
+                #     slider_source: 'green_joy.png'
+                #     min:1
+                #     max:100
+                #     value:50
+                #     step:1
+                #     padding: '100sp'
+                #     cursor_image: self.slider_source
+                #     cursor_size: 50, 50
+                #     orientation:'vertical'
+
+                # Slider:
+                #     slider_source: 'green_joy.png'
+                #     min:1
+                #     max:100
+                #     value:50    
+                #     step:1
+                #     padding: '20sp'
+                #     cursor_image: self.slider_source
+                #     cursor_size: 50, 50
+                #     orientation:'horizontal'
+
+                    
+
+                #Left joystick
+                Label:
+                    id: left_joystick #Variable de l'id left_joystick. Utiliser self.screen.ids.left_joystick.joystick_x = depuis python pour modifier
+                    joystick_x : 0
+                    joystick_y : 0
+                    joy_inside_color: 1, 0, 0, 0.5
+
+                    #text : "[0,0]"
+    
+                    canvas:
+                        Color:
+                            rgba: self.joy_inside_color
+                        Line:
+                            width: 8
+                            circle: self.center_x, self.center_y, min(self.width-25, self.height-25)/4
+                        Color:
+                            rgba: 0, 0, 0, 1
+                        Line:
+                            width: 2
+                            circle: self.center_x, self.center_y, min(self.width, self.height)/4
+
+
+                        Color:
+                            rgba: 1, 1, 1, 0.8
+                        Line:
+                            width: min(self.width, self.height)/25
+                            circle: 
+                                (self.center_x+self.joystick_x*min(self.width, self.height)/6, 
+                                self.center_y +self.joystick_y*min(self.width, self.height)/6, 
+                                min(self.width, self.height)/30)
+
+                        Color:
+                            rgba: 0, 0, 0, 0.8
+                        Line:
+                            width: min(self.width, self.height)/25
+                            circle: 
+                                (self.center_x+self.joystick_x*min(self.width, self.height)/6, 
+                                self.center_y +self.joystick_y*min(self.width, self.height)/6, 
+                                min(self.width, self.height)/70)
+
+                
+        
+                #Right joystick
+                Label:
+                    id: right_joystick 
+                    joystick_x : 0
+                    joystick_y : 0
+                    joy_inside_color: 1, 0, 0, 0.5
+                    #text : "[0,0]"
+                            
+                    canvas:
+                        Color:
+                            rgba: self.joy_inside_color
+                        Line:
+                            width: 8
+                            circle: self.center_x, self.center_y, min(self.width-25, self.height-25)/4
+                        Color:
+                            rgb: 0, 0, 0
+                        Line:
+                            width: 2
+                            circle: self.center_x, self.center_y, min(self.width, self.height)/4
+
+
+                        Color:
+                            rgba: 1, 1, 1, 0.8
+                        Line:
+                            width: min(self.width, self.height)/25
+                            circle: 
+                                (self.center_x+self.joystick_x*min(self.width, self.height)/6, 
+                                self.center_y +self.joystick_y*min(self.width, self.height)/6, 
+                                min(self.width, self.height)/30)
+
+                        Color:
+                            rgba: 0, 0, 0, 0.8
+                        Line:
+                            width: min(self.width, self.height)/25
+                            circle: 
+                                (self.center_x+self.joystick_x*min(self.width, self.height)/6, 
+                                self.center_y +self.joystick_y*min(self.width, self.height)/6, 
+                                min(self.width, self.height)/70)  
+
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint_y:.2
+
+                MDIcon:
+                    halign: "center"
+                    icon: "arrow-up-down"
+                    font_size:'80sp'
+
+                MDIcon:
+                    halign: "center"
+                    icon: "arrow-left-right"
+                    font_size:'80sp'
+
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint_y:.2
+
+                Label:
+                    id:padding
+                Label:
+                    id:padding
+
+        #Sensor
+        BoxLayout:
+            orientation:'vertical'
+
+            Label:
+                id: yaw_points_card
+                text:"North"
+                font_size:'20sp'
+                size_hint_y: .2
+                
+            Image:
+                id: top_axe
+                alpha: 0
+                source: 'images/top_axe.png'
+                allow_stretch: True
+
+                canvas.before:
+                    StencilPush
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                    StencilUnUse  
+                    PushMatrix
+                    Rotate:
+                        angle: self.alpha
+                        origin: self.center
+                    StencilUse
+                canvas.after:
+                    StencilPop
+                    PopMatrix
+                    Line: 
+                        width: 1
+                        circle: self.center_x, self.center_y, min(self.width, self.height)/2.5
+
+            Label:
+                id: yaw_deg
+                text:"Orientation: 0°"
+                font_size:'20sp'
+                size_hint_y: .2
+
+
+
